@@ -136,8 +136,9 @@ if __name__ == '__main__':
                         metavar='FILE')
     parser.add_argument('-m', '--mesh',
                         default=['bat0'], nargs='+',
-                        help='Use given batman-adv mesh interface(s) (defaults to bat0); '
-                             'specify alfred unix socket like bat0:/run/alfred0.sock.')
+                        help='Use given batman-adv mesh interface(s) (defaults'
+                             'to bat0); specify alfred unix socket like '
+                             'bat0:/run/alfred0.sock.')
     parser.add_argument('-d', '--dest-dir', action='store',
                         help='Write output to destination directory',
                         required=True)
