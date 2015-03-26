@@ -67,7 +67,8 @@ def main(params):
     # integrate alfred nodeinfo
     for alfred in alfred_instances:
         nodes.import_nodeinfo(nodedb['nodes'], alfred.nodeinfo(),
-                              now, assume_online=True)
+                              now, assume_online=True,
+                              hide_ownership=params['hide_ownership'])
 
     # integrate static aliases data
     for aliases in params['aliases']:
@@ -146,7 +147,12 @@ if __name__ == '__main__':
                         help='forget nodes offline for at least DAYS')
     parser.add_argument('--with-rrd', dest='rrd', action='store_true',
                         default=False,
-                        help='enable the rendering of RRD graphs (cpu intensive)')
+                        help='Enable the rendering of RRD graphs '
+                             '(cpu intensive)')
+    parser.add_argument('--with-hidden-ownership', dest='hide_ownership',
+                        action='store_true', default=False,
+                        help='Remove owner/contact information from'
+                             'alfred nodeinfo')
 
     options = vars(parser.parse_args())
     main(options)

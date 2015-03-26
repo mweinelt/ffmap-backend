@@ -37,9 +37,16 @@ def mark_online(node, now):
     node['flags']['online'] = True
 
 
-def import_nodeinfo(nodes, nodeinfos, now, assume_online=False):
+def import_nodeinfo(nodes, nodeinfos, now, assume_online=False,
+                    hide_ownership=False):
     for nodeinfo in filter(lambda d: 'node_id' in d, nodeinfos):
         node = nodes.setdefault(nodeinfo['node_id'], {'flags': dict()})
+        # hide ownership (--with-hidden-ownership)
+        if hide_ownership:
+            try:
+                del nodeinfo['owner']
+            except KeyError:
+                pass
         node['nodeinfo'] = nodeinfo
         node['flags']['online'] = False
         node['flags']['gateway'] = False
